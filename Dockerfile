@@ -1,15 +1,11 @@
-FROM node
+FROM node:12-alpine as build-step
 
-RUN mkdir -p /usr/src/app
-RUN mkdir -p /usr/src/app/backend
+WORKDIR /app
 
-WORKDIR /usr/src/app/backend
+COPY package.json /app
 
-COPY package*.json ./
 RUN npm install
 
-COPY . .
+COPY . /app
 
-EXPOSE 3000
-
-CMD [ "npm", "start"]
+CMD [ "node","index.js" ]
